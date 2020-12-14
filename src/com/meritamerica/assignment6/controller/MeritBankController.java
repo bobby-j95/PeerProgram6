@@ -1,5 +1,7 @@
 package com.meritamerica.assignment6.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.meritamerica.assignment6.*;
@@ -74,9 +76,8 @@ public class MeritBankController {
 	}
 	
 	@GetMapping(value="/AccountHolders/{id}/CheckingAccounts")
-	public CheckingAccount[] getChecking(@PathVariable("id") long id) throws NotFoundException {
+	public List<CheckingAccount> getChecking(@PathVariable("id") long id) throws NotFoundException {
 		AccountHolder account = this.getAccountHolder(id);
-		
 		return account.getCheckingAccounts();
 	}
 	
@@ -99,9 +100,8 @@ public class MeritBankController {
 	}
 	
 	@GetMapping(value="/AccountHolders/{id}/SavingsAccounts")
-	public SavingsAccount[] getSavings(@PathVariable("id") long id) throws NotFoundException {
+	public List<SavingsAccount> getSavings(@PathVariable("id") long id) throws NotFoundException {
 		AccountHolder account = this.getAccountHolder(id);
-		
 		return account.getSavingsAccounts();
 	}
 	
@@ -129,7 +129,7 @@ public class MeritBankController {
 	}
 	
 	@GetMapping(value="/AccountHolders/{id}/CDAccounts")
-	public CDAccount[] getCDAccounts(@PathVariable("id") long id) throws NotFoundException {
+	public List<CDAccount> getCDAccounts(@PathVariable("id") long id) throws NotFoundException {
 		AccountHolder account = this.getAccountHolder(id);
 		
 		return account.getCDAccounts();
