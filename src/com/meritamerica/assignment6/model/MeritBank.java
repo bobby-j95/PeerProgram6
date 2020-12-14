@@ -257,32 +257,26 @@ public class MeritBank {
 	
 	public static CDOffering getSecondBestCDOffering(double depositAmount) {
 
-		double highestYield = 0;
-		int secondBestI = 0; // second best offer index
-		int bestI = 0;
+		double secondBestRate = 0;
+		CDOffering secondBestI = null; // second best offer index
+		CDOffering bestI = getBestCDOffering(depositAmount);
 		double secondBestYield = 0;
 		double tempYield = 0;
 		
-		if (MeritBank.cdOfferings != null) {
-			for (int i=0; i < MeritBank.cdOfferings.length; i++) {
-				tempYield = MeritBank.futureValue(depositAmount, cdOfferings[i].getInterestRate(), cdOfferings[i].getTerm());
-				if (tempYield > highestYield) {
-					
-					// let the second best offer take over the old best offer
-					secondBestI = bestI;
-					secondBestYield = highestYield;
-					
-					// the best offer get the new position and value
-					highestYield = tempYield;
-					bestI = i;
-					
-				}
+		if(cdOfferings.size() <= 1) { 
+			return null; 
+		}
+		for(CDOffering cdOffering : cdOfferings) {
+			if(cdOffering == bestI) {
+				continue; 
+			}
+			if(cdOffering.getInterestRate() > secondBestRate) {
+				secondBestI = cdOffering;
+				secondBestRate = cdOffering.getInterestRate();
 			}
 			
-			return cdOfferings[secondBestI];
-		} else {
-			return null;
 		}
+		return secondBestI;
 	}
 	
 	public static void clearCDOfferings() {
@@ -309,10 +303,17 @@ public class MeritBank {
 		double total = 0.0;
 		
 		// total all balances (checking and saving) in every account		
-		for (int i=0; i < MeritBank.numbOfAccountHolder; i++) {
-			total += MeritBank.accountHolders[i].getCheckingBalance() + MeritBank.accountHolders[i].getCheckingBalance();
+		for(AccountHolder acHolder : accountHolders) {
+			for(BankAccount account : acHolder.getCheckingAccounts()) {
+				total += account.getBalance();
+			}
+			for(BankAccount account : acHolder.getSavingsAccounts()) {
+				total += account.getBalance();
+			}
+			for(BankAccount account: acHolder.getCDAccounts()) {
+				total += account.getBalance();
+			}
 		}
-		
 		return total;
 	}
 	
