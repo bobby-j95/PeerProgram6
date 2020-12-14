@@ -46,9 +46,8 @@ public class AccountHolder implements Comparable<AccountHolder>{
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	private AccountHolder accountHolderData;
-  
-	
+	private AccountHolderContactInfo accountHolderDataContactInfo;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<CheckingAccount> checkingAccounts;
 
@@ -284,6 +283,14 @@ public class AccountHolder implements Comparable<AccountHolder>{
 
 		public void setId(int id) {
 			this.id = id;
+		}
+		
+		public AccountHolderContactInfo getAccountHolderDataContactInfo() {
+			return accountHolderDataContactInfo;
+		}
+
+		public void setAccountHolderDataContactInfo(AccountHolderContactInfo accountHolderDataContactInfo) {
+			this.accountHolderDataContactInfo = accountHolderDataContactInfo;
 		}
 
 		@Override

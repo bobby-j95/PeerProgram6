@@ -41,7 +41,7 @@ public class MeritBankController {
 	}
 	
 	@GetMapping(value="/AccountHolders")
-	public AccountHolder[] getAccountHolders() {
+	public List<AccountHolder> getAccountHolders() {
 		return MeritBank.getAccountHolders();
 	}
 	
@@ -150,8 +150,8 @@ public class MeritBankController {
 	}
 	
 	@GetMapping("/CDOfferings")
-	public CDOffering[] getCDOfferings() throws NotFoundException {
-		CDOffering[] cdOfferings = MeritBank.getCDOfferings();
+	public List<CDOffering> getCDOfferings() throws NotFoundException {
+		List<CDOffering> cdOfferings = MeritBank.getCDOfferings();
 	    return cdOfferings;
 	}
 	
